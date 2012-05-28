@@ -1,0 +1,15 @@
+﻿table, td, tr, th {
+	border : 1px solid black;
+	border-collapse:collapse;
+}
+
+td {
+
+}
+
+tr {
+}
+
+th {
+	pointer : pointer;
+}
