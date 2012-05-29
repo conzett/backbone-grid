@@ -1,7 +1,8 @@
 GridView = Backbone.View.extend({
     tagName : 'div',
     options : {
-        columns : null
+        columns : null,
+        columnMenu : false
     },
     initialize : function () {
         'use strict';
@@ -10,7 +11,11 @@ GridView = Backbone.View.extend({
     render : function () {
         'use strict';
         $(this.el).html('<table><thead><tr></tr></thead><tbody></tbody></table><div id="show-hide-columns"></div>');
-        $('#show-hide-columns', this.el).css('display', 'none');
+
+        if(!this.options.columnMenu) {
+            $('#show-hide-columns', this.el).css('display', 'none');
+        }
+        
         this.addHeader();
         this.addRows();
         return this;
@@ -60,8 +65,26 @@ GridView = Backbone.View.extend({
     },
     showColumnMenu : function () {
         $('#show-hide-columns', this.el).show();
+        this.options.columnMenu = true;
     },
     hideColumnMenu : function () {
         $('#show-hide-columns', this.el).hide();
+        this.options.columnMenu = false;
+    },
+    showColumn : function (column_name) {
+        _.each(this.options.columns, function (header) {
+            if (header.name === column_name) {
+                header.hidden = false;
+            }
+        }, this);
+        this.render();
+    },
+    hideColumn : function (column_name) {
+        _.each(this.options.columns, function (header) {
+            if (header.name === column_name) {
+                header.hidden = true;
+            }
+        });
+        this.render();
     }
 });

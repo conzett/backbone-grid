@@ -18,15 +18,16 @@ GridHeaderCellView = Backbone.View.extend({
     },
     events : {
         "click" : "sort",
-        "contextmenu" : "test"
+        "contextmenu" : "showGridMenu"
     },
     sort : function () {
         'use strict';
         this.model.sortOrder = (this.model.sortOrder === 'asc') ? 'desc' : 'asc';
         this.options.grid.sort(this.model.name, this.model.sortOrder);
     },
-    test : function (event) {
+    showGridMenu : function (event) {
         'use strict';
         event.preventDefault();
+        this.options.grid.showColumnMenu();
     }
 });
