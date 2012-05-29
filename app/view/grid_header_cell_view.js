@@ -11,6 +11,9 @@ GridHeaderCellView = Backbone.View.extend({
     render : function () {
         'use strict';
         $(this.el).append(this.model.displayName);
+        if (this.model.hidden) {
+            $(this.el).addClass('hidden');
+        }
         return this;
     },
     events : {

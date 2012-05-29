@@ -6,7 +6,7 @@ var pictures = new Backbone.Collection([
     ]);
 
 var columns = [
-            { name : "id", displayName : "ID" },
+            { name : "id", displayName : "ID", hidden : false },
             { name : "name", displayName : "Name" },
             { name : "filename", displayName : "File Name" }
         ];

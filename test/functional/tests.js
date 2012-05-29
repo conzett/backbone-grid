@@ -160,3 +160,24 @@ test("Sorting the grid from the column view ascending and descending by an integ
 	equal(testGrid.at(2).get('id'), 1, "After clicking again, expect last row to be have a name property that is alphabetically first");
 		
 });
+
+test('Render, but do not show columns that are designated "hidden"', function () {
+	'use strict';
+
+	var testColumns = [{ name : "id", displayName : "ID", hidden : true }, { name : "name", displayName : "Name" }],
+		testGrid = new Backbone.Collection([{ id: 1, name: "Test Name"}]),
+		testGridView,
+		expected;
+
+	testGridView = new GridView({
+		collection : testGrid,
+		columns : testColumns
+	});
+
+	expected = '<table><thead><tr><th class="hidden">ID</th><th>Name</th></tr></thead><tbody><tr><td class="hidden">1</td><td>Test Name</td></tr></tbody></table>';
+
+	$('#qunit-fixture').html(testGridView.el);
+
+	equal($('#qunit-fixture').html(), expected, "Expect correct column to be hidden based on fixture data");
+		
+});

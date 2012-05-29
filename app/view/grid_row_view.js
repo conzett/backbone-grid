@@ -11,7 +11,12 @@ window.GridRowView = Backbone.View.extend({
         'use strict';
         if (this.options.columns) {
             _.each(this.options.columns, function (column) {
-                $(this.el).append('<td>' + this.model.get(column.name) + '</td>');
+                var cell = '<td';
+                if (column.hidden) {
+                    cell += ' class="hidden"'
+                }
+                cell += '>' + this.model.get(column.name) + '</td>';
+                $(this.el).append(cell);
             }, this);
         }
         return this;

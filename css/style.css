@@ -3,6 +3,10 @@
 	border-collapse:collapse;
 }
 
+table {
+	background-color : lightgray;
+}
+
 td {
 
 }
@@ -12,4 +16,8 @@ tr {
 
 th {
 	pointer : pointer;
+}
+
+.hidden {
+	display : none;
 }
