@@ -21,3 +21,7 @@ th {
 .hidden {
 	display : none;
 }
+
+#show-hide-columns {
+	display : block;
+}

@@ -1,5 +1,5 @@
 GridView = Backbone.View.extend({
-    tagName : 'table',
+    tagName : 'div',
     options : {
         columns : null
     },
@@ -9,7 +9,8 @@ GridView = Backbone.View.extend({
     },
     render : function () {
         'use strict';
-        $(this.el).html('<thead><tr></tr></thead><tbody></tbody>');
+        $(this.el).html('<table><thead><tr></tr></thead><tbody></tbody></table><div id="show-hide-columns"></div>');
+        $('#show-hide-columns', this.el).css('display', 'none');
         this.addHeader();
         this.addRows();
         return this;
@@ -22,6 +23,11 @@ GridView = Backbone.View.extend({
                 grid : this
             });
             $('thead tr', this.el).append(view.el);
+            var menu = new GridColumnMenuView({
+                model : header,
+                grid : this
+            });
+            $('#show-hide-columns', this.el).append(menu.el);
         }, this);
     },
     addRow : function (row) {
@@ -36,10 +42,10 @@ GridView = Backbone.View.extend({
         'use strict';
         this.collection.each(this.addRow, this);
     },
-    sort : function (criteria, order) {
+    sort : function (criteria, sortOrder) {
         'use strict';
         this.collection.comparator = function (column) {
-            if (order === 'desc') {
+            if (sortOrder === 'desc') {
                 return String.fromCharCode.apply(
                     String,
                     _.map(column.get(criteria).toString().split(""), function (c) {
@@ -51,5 +57,11 @@ GridView = Backbone.View.extend({
         };
         this.collection.sort();
         this.render();
+    },
+    showColumnMenu : function () {
+        $('#show-hide-columns', this.el).show();
+    },
+    hideColumnMenu : function () {
+        $('#show-hide-columns', this.el).hide();
     }
 });

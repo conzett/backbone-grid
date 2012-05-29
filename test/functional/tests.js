@@ -40,11 +40,43 @@ test("GridView default rendering behavior", function () {
 			collection : testGrid,
 			columns : testColumns
 		}),
-		expected = "<table><thead><tr><th>ID</th><th>Name</th></tr></thead><tbody><tr><td>2</td><td>Test Name</td></tr></tbody></table>";
+		expected = "<thead><tr><th>ID</th><th>Name</th></tr></thead><tbody><tr><td>2</td><td>Test Name</td></tr></tbody>";
 
 	$('#qunit-fixture').html(testGridView.el);
 
-	equal($('#qunit-fixture').html(), expected, "Expect correct header markup based on fixture data");
+	equal($('#qunit-fixture').find('table').html(), expected, "Expect correct header markup based on fixture data");
+});
+
+test("Show/hide column menu default rendering behavior", function () {
+	'use strict';
+
+	var testColumns = [{ name : "id", displayName : "ID" }, { name : "name", displayName : "Name" }],
+		testGrid = new Backbone.Collection([{ id: 2, name: "Test Name"}]),
+		testGridView = new GridView({
+			collection : testGrid,
+			columns : testColumns
+		}),
+		expected = '<span><input type="checkbox" id="id-column-visible" checked="checked"><label for="id-column-visible">ID</label></span>';
+		expected += '<span><input type="checkbox" id="name-column-visible" checked="checked"><label for="name-column-visible">Name</label></span>';
+
+	$('#qunit-fixture').html(testGridView.el);
+
+	equal($('#qunit-fixture').find('#show-hide-columns').html(), expected, "Expect correct markup for show/hide column menu");
+});
+
+test("Show/hide column menu is hidden by default", function () {
+	'use strict';
+
+	var testColumns = [{ name : "id", displayName : "ID" }, { name : "name", displayName : "Name" }],
+		testGrid = new Backbone.Collection([{ id: 2, name: "Test Name"}]),
+		testGridView = new GridView({
+			collection : testGrid,
+			columns : testColumns
+		});
+
+	$('#qunit-fixture').html(testGridView.el);
+
+	ok($('#qunit-fixture').find('#show-hide-columns').is(':hidden'), "Expect the show/hide column menu to be hidden");
 });
 
 module("Functional tests");
@@ -174,10 +206,60 @@ test('Render, but do not show columns that are designated "hidden"', function ()
 		columns : testColumns
 	});
 
-	expected = '<table><thead><tr><th class="hidden">ID</th><th>Name</th></tr></thead><tbody><tr><td class="hidden">1</td><td>Test Name</td></tr></tbody></table>';
+	expected = '<thead><tr><th class="hidden">ID</th><th>Name</th></tr></thead><tbody><tr><td class="hidden">1</td><td>Test Name</td></tr></tbody>';
 
 	$('#qunit-fixture').html(testGridView.el);
 
-	equal($('#qunit-fixture').html(), expected, "Expect correct column to be hidden based on fixture data");
+	equal($('#qunit-fixture').find('table').html(), expected, "Expect correct column to be hidden based on fixture data");
+		
+});
+
+test('Test showColumnMenu and hideColumnMenu functions in GridView', function () {
+	'use strict';
+
+	var testColumns = [{ name : "id", displayName : "ID", hidden : true }, { name : "name", displayName : "Name" }],
+		testGrid = new Backbone.Collection([{ id: 1, name: "Test Name"}]),
+		testGridView,
+		expected;
+
+	testGridView = new GridView({
+		collection : testGrid,
+		columns : testColumns
+	});
+
+	$('#qunit-fixture').html(testGridView.el);
+
+	ok($('#qunit-fixture').find('#show-hide-columns').is(':hidden'), "Expect the show/hide column menu to be hidden initially");
+
+	testGridView.showColumnMenu();
+
+	ok($('#qunit-fixture').find('#show-hide-columns').is(':visible'), "Expect the show/hide column menu to be visible after calling showColumnMenu on the Grid View");
+
+	testGridView.hideColumnMenu();
+
+	ok($('#qunit-fixture').find('#show-hide-columns').is(':hidden'), "Expect the show/hide column menu to be hidden again after calling hideColumnMenu on the Grid View");
+		
+});
+
+test('Right clicking header reaveals show hide column menu', function () {
+	'use strict';
+
+	var testColumns = [{ name : "id", displayName : "ID", hidden : true }, { name : "name", displayName : "Name" }],
+		testGrid = new Backbone.Collection([{ id: 1, name: "Test Name"}]),
+		testGridView,
+		expected;
+
+	testGridView = new GridView({
+		collection : testGrid,
+		columns : testColumns
+	});
+
+	$('#qunit-fixture').html(testGridView.el);
+
+	ok($('#qunit-fixture').find('#show-hide-columns').is(':hidden'), "Expect the show/hide column menu to be hidden initially");
+
+	$('#qunit-fixture').find('th').eq(0).trigger('contextmenu');
+
+	ok($('#qunit-fixture').find('#show-hide-columns').is(':visible'), "Expect the show/hide column menu to be visible after right clicking a head cell");
 		
 });

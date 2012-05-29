@@ -2,7 +2,7 @@ GridHeaderCellView = Backbone.View.extend({
     tagName : 'th',
     options : {
         grid : null,
-        order : null
+        sortOrder : null
     },
     initialize : function () {
         'use strict';
@@ -17,11 +17,16 @@ GridHeaderCellView = Backbone.View.extend({
         return this;
     },
     events : {
-        "click" : "sort"
+        "click" : "sort",
+        "contextmenu" : "test"
     },
     sort : function () {
         'use strict';
-        this.model.order = (this.model.order === 'asc') ? 'desc' : 'asc';
-        this.options.grid.sort(this.model.name, this.model.order);
+        this.model.sortOrder = (this.model.sortOrder === 'asc') ? 'desc' : 'asc';
+        this.options.grid.sort(this.model.name, this.model.sortOrder);
+    },
+    test : function (event) {
+        'use strict';
+        event.preventDefault();
     }
 });
