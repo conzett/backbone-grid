@@ -16,11 +16,13 @@ GridView = Backbone.View.extend({
             $('#show-hide-columns', this.el).css('display', 'none');
         };
 
-        $(document).mouseup(function (event) {
-            var container = $("#show-hide-columns");
+        var that = this;
+
+        $(document).mousedown(function (event) {
+            var container = $("#show-hide-columns");       
 
             if (container.has(event.target).length === 0) {
-                container.hide();
+                that.hideColumnMenu();
             }
         });
 
