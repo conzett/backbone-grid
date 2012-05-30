@@ -18,7 +18,7 @@ GridColumnMenuView = Backbone.View.extend({
         return this;
     },
     events : {
-        "click" : "toggleChecked",
+        "change input" : "toggleChecked"
     },
     toggleChecked : function () {
         if (this.model.hidden) {
