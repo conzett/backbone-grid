@@ -11,18 +11,17 @@ var columns = [
             { name : "filename", displayName : "File Name" }
         ];
 
+        /*
+
 var grid_view_small = new GridView({
 	collection : pictures,
     columns : columns
 });
-
-/*
+*/
 
 var grid_view_large = new GridView({
     collection : fake_data,
     columns : fake_data_columns
 });
 
-*/
-
-$('body').append(grid_view_small.el);
+$('body').append(grid_view_large.el);

@@ -78,19 +78,20 @@ GridView = Backbone.View.extend({
         this.options.columnMenu = false;
     },
     showColumn : function (column_name) {
-        _.each(this.options.columns, function (header) {
+        _.each(this.options.columns, function (header, index) {
             if (header.name === column_name) {
                 header.hidden = false;
+                $('tr :nth-child(' + (index + 1) + ')').removeClass('hidden');
             }
         }, this);
         this.render();
     },
     hideColumn : function (column_name) {
-        _.each(this.options.columns, function (header) {
+        _.each(this.options.columns, function (header, index) {
             if (header.name === column_name) {
                 header.hidden = true;
+                $('tr :nth-child(' + (index + 1) + ')').addClass('hidden');
             }
-        });
-        this.render();
+        }, this);
     }
 });
