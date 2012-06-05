@@ -1,10 +1,16 @@
 ﻿table, td, tr, th {
-	border : 1px solid black;
+	border : 1px solid gray;
 	border-collapse:collapse;
 }
 
 table {
 	background-color : lightgray;
+	font-family : helvetica, arial, sans-serif;
+	font-size : 12px;
+}
+
+td, th {
+	padding : 3px;
 }
 
 td {

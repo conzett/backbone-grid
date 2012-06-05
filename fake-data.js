@@ -11,7 +11,7 @@ var fake_data_columns = [
     {name : "secondary_address", displayName : "Secondary Address"},
     {name : "state", displayName : "State"},
     {name : "state_abbr", displayName : "State Abbr"},
-    {name : "street_address", displayName : "State Address"},
+    {name : "street_address", displayName : "Street Address"},
     {name : "street_name", displayName : "Street Name"},
     {name : "street_suffix", displayName : "Street Suffix"},
     {name : "zip_code", displayName : "Zip Code"},
