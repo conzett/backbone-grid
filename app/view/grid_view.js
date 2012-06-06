@@ -93,5 +93,12 @@ GridView = Backbone.View.extend({
                 $('tr :nth-child(' + (index + 1) + ')').addClass('hidden');
             }
         }, this);
+    },
+    filterColumn : function (column_name, comparison) {
+        var test = this.collection.filter(function (column) {
+            return comparison.call(this, column.get(column_name));
+        });
+        this.collection = new Backbone.Collection(test);
+        this.render();
     }
 });

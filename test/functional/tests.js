@@ -344,3 +344,30 @@ test('Test showColumnMenu and hideColumnMenu functions in GridView', function ()
 	equal($('#qunit-fixture').find('table').html(), visible, "Expect correct column to be visible after calling showColumn");
 		
 });
+
+test('Test filterColumn function with equality', function () {
+	'use strict';
+
+	var testColumns = [{ name : "id", displayName : "ID" }, { name : "name", displayName : "Name" }],
+		testGrid = new Backbone.Collection([
+			{ id: 1, name: "Test Name"},
+			{ id: 2, name: "Another thing"},
+			{ id: 3, name: "Thing"}
+		]),
+		testGridView,
+		expected;
+
+	testGridView = new GridView({
+		collection : testGrid,
+		columns : testColumns
+	});
+
+	expected = '<tr><td>1</td><td>Test Name</td></tr>';
+
+	$('#qunit-fixture').html(testGridView.el);
+
+	testGridView.filterColumn('id', function(arg){ return (arg === 1); });
+
+	equal($('#qunit-fixture').find('table tbody').html(), expected, "Expect property filtered column results");
+		
+});
