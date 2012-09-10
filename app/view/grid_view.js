@@ -18,7 +18,7 @@ GridView = Backbone.View.extend({
     },
     render : function () {
         'use strict';
-        $(this.el).html('<table><thead><tr></tr></thead><tbody></tbody></table><div id="show-hide-columns"></div>');
+        $(this.el).html('<table><caption>Test Data</caption><thead><tr></tr></thead><tbody></tbody></table><div id="show-hide-columns"></div>');
         this.addHeader();
         this.addRows();
         if(!this.options.columnMenu) {
