@@ -33,17 +33,21 @@ GridView = Backbone.View.extend({
 
     renderHeader : function () {
         'use strict';
+
         _.each(this.options.columns, function (header) {
+
             var view = new GridHeaderCellView({
                 model : header,
                 grid : this,
                 displayNameProperty : this.options.displayPropertyName
             });
+
             $('thead tr', this.el).append(view.el);
             var menu = new GridColumnMenuView({
                 model : header,
                 grid : this
             });
+
             $('#show-hide-columns', this.el).append(menu.el);
         }, this);
     },
@@ -55,10 +59,12 @@ GridView = Backbone.View.extend({
 
     renderRow : function (row) {
         'use strict';
+
         var view = new GridRowView({
             model : row,
             columns : this.options.columns
         });
+
         $('tbody', this.el).append(view.el);
     },
 
