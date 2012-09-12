@@ -2,7 +2,8 @@ GridHeaderCellView = Backbone.View.extend({
     tagName : 'th',
     options : {
         grid : null,
-        sortOrder : null
+        sortOrder : null,
+        displayNameProperty : 'name'
     },
     initialize : function () {
         'use strict';
@@ -10,7 +11,7 @@ GridHeaderCellView = Backbone.View.extend({
     },
     render : function () {
         'use strict';
-        $(this.el).append(this.model.displayName);
+        $(this.el).append(this.model[this.options.displayNameProperty]);
         if (this.model.hidden) {
             $(this.el).addClass('hidden');
         }
