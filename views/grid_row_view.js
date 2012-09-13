@@ -23,10 +23,8 @@ window.GridRowView = Backbone.View.extend({
                 }
                 cell += '>';
 
-                console.log(_.reduce('options.columnID'.split('.'), function(obj,i) {return obj[i]}, this));
+               var value = column.valueFunction.apply(this, [this.model, column]);
 
-                var stat = _.find(this.model.get(this.options.modelName), function(obj){ return obj['attribute']['id'] == column.id; });
-                var value = stat ? stat.value : '';
                 cell += value + '</td>';
 
                 $(this.el).append(cell);
