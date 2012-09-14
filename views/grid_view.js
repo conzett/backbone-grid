@@ -12,7 +12,9 @@ GridView = Backbone.View.extend({
 
     var columnDefaults = {
       cellObjectFunction : function(row, column){ return row },
-      cellObjectProperty : 'id'
+      cellObjectProperty : 'id',
+      cellView : GridDefaultCellView,
+      cellModel : Backbone.Model.extend({})
     }
 
     // Merge in default column options
