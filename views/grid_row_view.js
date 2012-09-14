@@ -4,6 +4,7 @@ window.GridRowView = Backbone.View.extend({
 
   options : {
     columns : null,
+    grid : null,
     modelName : 'statistics',
     columnID : 'attribute.id'
   },
@@ -24,7 +25,7 @@ window.GridRowView = Backbone.View.extend({
         cell += '>';
 
         // Find the object
-        var obj = column.cellObjectFunction.apply(this, [this.model, column]);
+        var obj = this.options.grid.getCell(this.model, column);
         var value = typeof(obj) === 'undefined' ? '' : obj[column.cellObjectProperty]
 
         cell += value + '</td>';
