@@ -63,6 +63,10 @@ GridView = Backbone.View.extend({
     }, this);
   },
 
+  getCell : function (row, column) {
+    return column.cellObjectFunction.apply(this, [row, column]);
+  },
+
   renderRows : function () {
     'use strict';
     this.collection.each(this.renderRow, this);
@@ -73,6 +77,7 @@ GridView = Backbone.View.extend({
 
     var view = new GridRowView({
       model : row,
+      grid : this,
       columns : this.options.columns
     });
 
