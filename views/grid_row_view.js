@@ -18,19 +18,16 @@ window.GridRowView = Backbone.View.extend({
     'use strict';
     if (this.options.columns) {
       _.each(this.options.columns, function (column) {
-        var cell = '<td';
-        if (column.hidden) {
-          cell += ' class="hidden"'
-        }
-        cell += '>';
 
-        // Find the object
-        var obj = this.options.grid.getCell(this.model, column);
-        var value = typeof(obj) === 'undefined' ? '' : obj[column.cellObjectProperty]
+        var view = new column.cellView({
+          model : new column.cellModel(this.options.grid.getCell(this.model, column)),
+          grid : this,
+          cellObjectProperty : column.cellObjectProperty,
+          hidden : column.hidden
+        });
 
-        cell += value + '</td>';
+        $(this.el).append(view.el);
 
-        $(this.el).append(cell);
       }, this);
     }
     return this;
