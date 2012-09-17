@@ -1,6 +1,7 @@
 GridView = Backbone.View.extend({
 
   tagName : 'div',
+
   options : {
     columns : null,
     columnMenu : false,
@@ -86,13 +87,13 @@ GridView = Backbone.View.extend({
     $('tbody', this.el).append(view.el);
   },
 
-  sort : function (criteria, sortOrder) {
+  sort : function (column) {
     'use strict';
-    this.collection.comparator = function (column) {
-      if (sortOrder === 'desc') {
+    this.collection.comparator = function (row) {
+      if (column.sortOrder === 'desc') {
         return String.fromCharCode.apply(
           String,
-          _.map(column.get(criteria).toString().split(""), function (c) {
+          _.map(row.get(criteria).toString().split(""), function (c) {
             return 0xffff - c.charCodeAt();
           })
         );
