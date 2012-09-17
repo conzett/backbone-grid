@@ -20,7 +20,14 @@ window.GridRowView = Backbone.View.extend({
       _.each(this.options.columns, function (column) {
 
         var view = new column.cellView({
-          model : new column.cellModel(this.options.grid.getCell(this.model, column)),
+          model : new column.cellModel(
+            this.options.grid.getCell(this.model, column),
+            // row and column are passed as options to cell model
+            {
+              row : this.model,
+              column : column
+            }
+          ),
           grid : this,
           cellObjectProperty : column.cellObjectProperty,
           hidden : column.hidden
