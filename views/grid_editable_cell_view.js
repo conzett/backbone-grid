@@ -55,6 +55,8 @@ GridEditableCellView = Backbone.View.extend({
   },
 
   stopEditable : function () {
+    this.model.save();
+    $(this.el).removeClass('editing');
     this.options.editing = false;
     this.render();
   }
