@@ -2,6 +2,8 @@ GridEditableCellView = Backbone.View.extend({
 
   tagName : 'td',
 
+  className : 'editable',
+
   options : {
     grid : null,
     cellObjectProperty : 'name',
@@ -45,8 +47,10 @@ GridEditableCellView = Backbone.View.extend({
       this.options.editing = true
       $(this.el).addClass('editing');
 
-      var form = '<input type="text" value="';
-          form += this.model.get(this.options.cellObjectProperty) +'"/>'
+      var value = this.model.get(this.options.cellObjectProperty);
+          value = value ? value : '';
+
+      var form = '<input type="text" value="'+ value +'"/>'
 
       $(this.el).html(
         form
@@ -54,8 +58,18 @@ GridEditableCellView = Backbone.View.extend({
     }
   },
 
+  update : function () {
+    var value = this.model.get('value') ? this.model.get('value').toString() : '',
+        form = $(this.el).find('input').val();
+
+    if (value !== form) {
+      this.model.set('value', $(this.el).find('input').val());
+      this.model.save();
+    }
+  },
+
   stopEditable : function () {
-    this.model.save();
+    this.update();
     $(this.el).removeClass('editing');
     this.options.editing = false;
     this.render();
