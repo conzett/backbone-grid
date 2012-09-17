@@ -30,7 +30,7 @@ GridHeaderCellView = Backbone.View.extend({
     sort : function () {
         'use strict';
         this.model.sortOrder = (this.model.sortOrder === 'asc') ? 'desc' : 'asc';
-        this.options.grid.sort(this.model.name, this.model.sortOrder);
+        this.options.grid.sort(this.model);
     },
 
     showGridMenu : function (event) {
