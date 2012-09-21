@@ -5,7 +5,8 @@ GridView = Backbone.View.extend({
   options : {
     columns : null,
     columnMenu : false,
-    displayPropertyName : 'name'
+    displayPropertyName : 'name',
+    eventAggregator : _.extend({}, Backbone.Events)
   },
 
   initialize : function () {
@@ -22,6 +23,8 @@ GridView = Backbone.View.extend({
     this.options.columns = _.map(this.options.columns, function(column){
       return $.extend({}, columnDefaults, column);
     }, this);
+
+    this.eventAggregator = this.options.eventAggregator;
 
     this.render();
 
