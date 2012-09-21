@@ -28,7 +28,7 @@ window.GridRowView = Backbone.View.extend({
               column : column
             }
           ),
-          grid : this,
+          grid : this.options.grid,
           cellObjectProperty : column.cellObjectProperty,
           hidden : column.hidden
         });
