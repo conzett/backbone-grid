@@ -66,9 +66,9 @@ GridEditableCellView = Backbone.View.extend({
     if (value !== form) {
       this.model.set('value', $(this.el).find('input').val());
       this.model.save({}, {
-        success: function () {
+        success: function (model, response) {
           that.options.grid.eventAggregator.trigger(
-            'grid:cellUpdated', this.model);
+            'grid:cellUpdated', model);
         },
         error: function (model, response) {
           console.log(model.toJSON());
