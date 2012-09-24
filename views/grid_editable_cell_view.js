@@ -52,9 +52,7 @@ GridEditableCellView = Backbone.View.extend({
 
       var form = '<input type="text" value="'+ value +'"/>'
 
-      $(this.el).html(
-        form
-      ).find('input').focus();
+      $(this.el).html(form).find('input').focus();
     }
   },
 
@@ -67,8 +65,7 @@ GridEditableCellView = Backbone.View.extend({
       this.model.set('value', $(this.el).find('input').val());
       this.model.save({}, {
         success: function (model, response) {
-          that.options.grid.eventAggregator.trigger(
-            'grid:cellUpdated', model);
+          that.options.grid.eventAggregator.trigger('grid:cellUpdated', model);
         },
         error: function (model, response) {
           console.log(model.toJSON());
